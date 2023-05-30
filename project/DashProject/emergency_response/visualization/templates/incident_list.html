@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Incident List</title>
+</head>
+<body>
+    <h1>Incident List</h1>
+    <ul>
+        {% for incident in incidents %}
+        <li>{{ incident.title }} - {{ incident.description }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

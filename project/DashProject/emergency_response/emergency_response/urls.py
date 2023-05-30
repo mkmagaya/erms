@@ -1,0 +1,62 @@
+"""
+URL configuration for emergency_response project.
+
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/4.2/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  path('', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.urls import include, path
+    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+"""
+from django.contrib import admin
+# from django.urls import path
+
+# urlpatterns = [
+#     path('admin/', admin.site.urls),
+# ]
+
+# from django.urls import path
+# from visualization.views import incident_list, create_incident
+
+# urlpatterns = [
+#     path('incidents/', incident_list, name='incident_list'),
+#     path('incidents/create/', create_incident, name='create_incident'),
+# ]
+
+from django.urls import path, include
+from visualization.views import incident_list, incident_detail, create_incident
+
+from django.shortcuts import HttpResponse
+import subprocess
+
+
+app_name = 'visualization'
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('incidents/', incident_list, name='incident_list'),
+    path('incidents/<int:incident_id>/', incident_detail, name='incident_detail'),
+    path('incidents/create/', create_incident, name='create_incident'),
+    # path('visualization/', include('visualization.urls', namespace='visualization')),
+
+]
+
+
+
+# def run_dash_project():
+#     # Change directory
+#     directory_path = r"C:/Users/makomborero.magaya/Documents/gerry/finaltest"
+#     subprocess.run(f"cd {directory_path} && pipenv shell && py dashproject11.py", shell=True)
+#     # Add any additional logic or response you need after running the script
+#     return HttpResponse("Dash project executed successfully!")
+
+# run_dash_project()
+
+admin.site.site_url = 'http://127.0.0.1:8050/'  # Removes the 'View Site' link
+# admin.site.site_header = 'My Site'

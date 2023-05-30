@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+</head>
+<body>
+    <h1>Dashboard</h1>
+    
+    {% if incidents %}
+        <h2>Incidents</h2>
+        <ul>
+            {% for incident in incidents %}
+                <li>{{ incident.title }} - {{ incident.timestamp }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No incidents found.</p>
+    {% endif %}
+    
+    <!-- Add your Plotly visualizations or other dashboard elements here -->
+</body>
+</html>
