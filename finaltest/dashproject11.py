@@ -30,13 +30,16 @@ app.layout = html.Div(
                         {"label": "Line Chart - Incidents over Time", "value": "line"},
                         {"label": "Pie Chart - Top 5 Incidents", "value": "pie"},
                         {"label": "Histogram - Incidents by Hour", "value": "histogram"},
+                        {"label": "Bar Chart - Top 10 Reported Cases", "value": "top_10"},
+                        {"label": "Map - All Cases and Locations", "value": "map_all_cases"},
+
                     ],
                     value="bar",
                 ),
             ],
         ),
         dcc.Graph(id="chart"),
-        # dcc.Graph(id="map"),
+        dcc.Graph(id="map_all_cases"),
     ]
 )
 
@@ -46,6 +49,7 @@ app.layout = html.Div(
     [dash.dependencies.Input("chart-type", "value")]
 )
 def update_chart(chart_type):
+    data["timeStamp"]=pd.to_datetime(data["timeStamp"], format="mixed")
     if chart_type == "bar":
         # Create a bar chart of incidents by type
         incidents_by_type = data["title"].value_counts().reset_index()
@@ -66,6 +70,16 @@ def update_chart(chart_type):
         data["timeStamp"]=pd.to_datetime(data["timeStamp"], format="mixed")
         data["Hour"] = pd.to_datetime(data["timeStamp"]).dt.hour
         figure = px.histogram(data, x="Hour", nbins=24)
+    elif chart_type == "top_10":
+        # Create a bar chart of top 10 reported cases
+        top_10_cases = data["title"].value_counts().nlargest(10)
+        figure = px.bar(top_10_cases, x=top_10_cases.index, y=top_10_cases.values)
+    elif chart_type == "map_all_cases":
+        # Create an interactive map showing all cases and locations
+        figure = px.scatter_mapbox(data, lat="lat", lon="lng", color="title", hover_data=["desc"],
+                                   zoom=10, height=500)
+        figure.update_layout(mapbox_style="open-street-map")
+        figure.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
     else:
         figure = go.Figure()
 
