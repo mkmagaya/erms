@@ -19,4 +19,4 @@ admin.site.site_title = 'Emergency Response Management System'
 # class MyAdminSite(AdminSite):
 #     site_url = 'http://127.0.0.1:8050/'
 
-# admin_site = MyAdminSite(name='Visualize')
+# admin_site = MyAdminSite(name='Manage Tasks')
