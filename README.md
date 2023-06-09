@@ -1,6 +1,7 @@
 "# erms" 
 
 "#Precondition: INCLUDE THE BIN FILE IN SYSTEM ENVIRONMENT VARIABLES"
+
 "#Precondition: INSTALL DEPENDENCIES (PYTHON|DJANGO|DASH|PLOTLY) IN REQUIREMENTS.TXT"
 
 `pip install -r requirements.txt`  
